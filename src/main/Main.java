@@ -1,11 +1,7 @@
 package main;
 
 import java.util.ArrayList;
-
-import modelo.Apartamento;
-import modelo.Casa;
 import modelo.Financiamento;
-import modelo.Terreno;
 import util.RelatorioFinanciamento;
 import util.InterfaceUsuario;
 

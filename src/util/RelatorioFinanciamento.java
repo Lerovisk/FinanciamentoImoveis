@@ -14,8 +14,7 @@ public class RelatorioFinanciamento {
 
         /* Escolhi fazer a apresentação desse jeito*/
 
-        if (f instanceof Casa) {
-            Casa casa = (Casa) f;
+        if (f instanceof Casa casa) {
             System.out.println("Tipo: Casa");
             System.out.printf("Área da construção da casa = %.2fm²%n", casa.getAreaDaCasa());
             System.out.printf("Área do terreno = %.2fm²%n", casa.getAreaDoTerreno());
