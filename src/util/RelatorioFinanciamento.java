@@ -15,8 +15,12 @@ public class RelatorioFinanciamento {
         /* Escolhi fazer a apresentação desse jeito*/
 
         if (f instanceof Casa) {
+            Casa casa = (Casa) f;
             System.out.println("Tipo: Casa");
+            System.out.printf("Área da construção da casa = %.2fm²%n", casa.getAreaDaCasa());
+            System.out.printf("Área do terreno = %.2fm²%n", casa.getAreaDoTerreno());
             System.out.printf("Pagamento mensal + R$240,00 (seguro) = R$%.2f%n", pagamentoMensal);
+            System.out.println();
         } else if (f instanceof Apartamento) {
             System.out.println("Tipo: Apartamento");
             System.out.printf("Pagamento mensal = R$%.2f%n", pagamentoMensal);
@@ -32,7 +36,7 @@ public class RelatorioFinanciamento {
         System.out.println("\n==========================");
     }
 
-    public void imprimirTotais(ArrayList<Financiamento> financiamentos){
+    public void imprimirSomaTotais(ArrayList<Financiamento> financiamentos){
         double somaImoveis = 0;
         double somaFinanciamentos = 0;
         for (Financiamento f : financiamentos) {

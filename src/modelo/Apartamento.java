@@ -1,9 +1,16 @@
 package modelo;
 
 public class Apartamento extends Financiamento { // Especificação
+
+    // Atributos
+    int vagas;
+    int andar;
+
     // Construtor
-    public Apartamento(double valorImovel, double taxaJurosAnual, int prazoFinanciamento){
+    public Apartamento(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, int vagas, int andar){
         super(valorImovel,taxaJurosAnual, prazoFinanciamento);
+        this.vagas = vagas;
+        this.andar = andar;
     }
 
     // Metodo

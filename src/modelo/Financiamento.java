@@ -1,6 +1,6 @@
 package modelo;
 
-public class Financiamento{ // Generalização
+public abstract class Financiamento{ // Generalização
 
     // Atributos
     protected final double valorImovel;
@@ -25,9 +25,8 @@ public class Financiamento{ // Generalização
     }
 
     // Métodos
-    public double calcularPagamentoMensal() { // Calculando o valor do pagamento mensal (em relação a taxa)
-        return (getValorImovel() / (getPrazoFinanciamento() * 12.0)) * (1 + (getTaxaJurosAnual() / 12.0));
-    }
+    public abstract double calcularPagamentoMensal();// Calculando o valor do pagamento mensal (em relação a taxa)
+
     public double calcularPagamentoTotal() { // Calculando o total a ser pago de acordo com o prazo
         return calcularPagamentoMensal() * getPrazoFinanciamento() * 12;
     }
