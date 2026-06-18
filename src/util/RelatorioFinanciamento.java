@@ -18,20 +18,24 @@ public class RelatorioFinanciamento {
             System.out.println("Tipo: Casa");
             System.out.printf("Área da construção da casa = %.2fm²%n", casa.getAreaDaCasa());
             System.out.printf("Área do terreno = %.2fm²%n", casa.getAreaDoTerreno());
-            System.out.printf("Pagamento mensal + R$240,00 (seguro) = R$%.2f%n", pagamentoMensal);
+            System.out.printf("\nPagamento mensal + R$240,00 (seguro) = R$%.2f\n", pagamentoMensal);
             System.out.println();
-        } else if (f instanceof Apartamento) {
+        } else if (f instanceof Apartamento apartamento) {
             System.out.println("Tipo: Apartamento");
-            System.out.printf("Pagamento mensal = R$%.2f%n", pagamentoMensal);
-        } else if (f instanceof Terreno) {
+            System.out.println("Vagas disponíveis: " + apartamento.getVagas());
+            System.out.println("Andares: " + apartamento.getAndar());
+            System.out.printf("\nPagamento mensal = R$%.2f%n\n", pagamentoMensal);
+
+        } else if (f instanceof Terreno terreno) {
             System.out.println("Tipo: Terreno");
-            System.out.printf("Pagamento mensal + acréscimo de 2%% = R$%.2f%n", pagamentoMensal);
+            System.out.println("Zona: " + terreno.getZona());
+            System.out.printf("\nPagamento mensal + acréscimo de 2%% = R$%.2f%n\n", pagamentoMensal);
         }
 
         System.out.printf("Valor do imóvel = R$%.2f%n", f.getValorImovel());
         System.out.printf("Taxa aplicada anualmente = %.2f%%%n", f.getTaxaJurosAnual()*100);
-        System.out.println("Anos = " + f.getPrazoFinanciamento() + " anos.");
-        System.out.printf("Pagamento total = R$%.2f", pagamentoTotal);
+        System.out.println("Anos: " + f.getPrazoFinanciamento() + " anos.");
+        System.out.printf("Pagamento total = R$%.2f\n", pagamentoTotal);
         System.out.println("\n==========================");
     }
 

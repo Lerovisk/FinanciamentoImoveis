@@ -26,7 +26,7 @@ public class Main { // Criando a classe Main
         financiamentos.add(new modelo.Apartamento(70000, 0.1, 10, 2,7));
         financiamentos.add(new modelo.Apartamento(800000, 0.1, 10, 1, 4));
 
-        financiamentos.add(new modelo.Terreno(1000000, 0.1, 10, "residencial"));
+        financiamentos.add(new modelo.Terreno(1000000, 0.1, 10, "Residencial"));
 
 
         RelatorioFinanciamento relatorio = new RelatorioFinanciamento(); // Criando um objeto do tipo RelatorioFinanciamento

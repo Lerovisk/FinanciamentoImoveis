@@ -3,12 +3,17 @@ package modelo;
 public class Terreno extends Financiamento { // Especificação
 
     // Atributos
-    String zona;
+    private final String zona;
 
     // Construtor
     public Terreno(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, String zona){
         super(valorImovel,taxaJurosAnual, prazoFinanciamento);
         this.zona = zona;
+    }
+
+    // Getters
+    public String getZona(){
+        return zona;
     }
 
     // Metodo

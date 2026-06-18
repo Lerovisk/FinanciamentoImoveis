@@ -3,8 +3,8 @@ package modelo;
 public class Apartamento extends Financiamento { // Especificação
 
     // Atributos
-    int vagas;
-    int andar;
+    private final int vagas;
+    private final int andar;
 
     // Construtor
     public Apartamento(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, int vagas, int andar){
@@ -12,7 +12,14 @@ public class Apartamento extends Financiamento { // Especificação
         this.vagas = vagas;
         this.andar = andar;
     }
+    // Getters
 
+    public int getVagas(){
+        return vagas;
+    }
+    public int getAndar(){
+        return andar;
+    }
     // Metodo
     @Override
     public double calcularPagamentoTotal() {
