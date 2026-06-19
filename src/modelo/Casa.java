@@ -27,4 +27,22 @@ public class Casa extends Financiamento { // Especificação
     public double calcularPagamentoMensal() { // Calculando pagamento mensal específico para casa
         return (getValorImovel() / (getPrazoFinanciamento() * 12.0)) * (1 + (getTaxaJurosAnual() / 12.0)) + 240;
     }
+    @Override
+    public void imprimirDados() {
+        double pagamentoMensal = this.calcularPagamentoMensal(); // Chamando a função de calcular o pagamento mensal
+        double pagamentoTotal = this.calcularPagamentoTotal(); // Chamando a função de calcular o pagamento total com a taxa aplicada
+
+        System.out.println("Tipo: Casa");
+        System.out.printf("Área da construção da casa = %.2fm²%n", this.getAreaDaCasa());
+        System.out.printf("Área do terreno = %.2fm²%n", this.getAreaDoTerreno());
+        System.out.printf("\nPagamento mensal + R$240,00 (seguro) = R$%.2f\n", pagamentoMensal);
+        System.out.println();
+
+        System.out.printf("Valor do imóvel = R$%.2f%n", this.getValorImovel());
+        System.out.printf("Taxa aplicada anualmente = %.2f%%%n", this.getTaxaJurosAnual() * 100);
+        System.out.println("Anos: " + this.getPrazoFinanciamento() + " anos.");
+        System.out.printf("Pagamento total = R$%.2f\n", pagamentoTotal);
+        System.out.println("\n==========================");
+
+    }
 }
