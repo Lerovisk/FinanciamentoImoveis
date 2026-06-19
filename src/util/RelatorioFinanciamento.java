@@ -6,6 +6,9 @@ import modelo.Terreno;
 
 import java.util.ArrayList;
 
+/* Optei por criar uma classe específica para a exibição de dados ao invés de implementar
+um metodo "exibirDados" na classe Financiamento, pois considerei que seria uma boa prática neste programa. */
+
 public class RelatorioFinanciamento {
     // Métodos
     public void imprimirDados(Financiamento f){ // Imprimindo os valores a serem pagos após o cálculo

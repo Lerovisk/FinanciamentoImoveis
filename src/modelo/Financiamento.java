@@ -3,9 +3,9 @@ package modelo;
 public abstract class Financiamento{ // Generalização
 
     // Atributos
-    protected final double valorImovel;
-    protected final double taxaJurosAnual;
-    protected final int prazoFinanciamento;
+    private final double valorImovel;
+    private final double taxaJurosAnual;
+    private final int prazoFinanciamento;
 
     // Construtor - itens obrigatórios
     public Financiamento(double valorInicialImovel, double taxaInicialJurosAnual, int  prazoInicialFinanciamento){
