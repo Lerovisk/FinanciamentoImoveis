@@ -3,19 +3,19 @@ package modelo;
 public class Apartamento extends Financiamento { // Especificação
 
     // Atributos
-    private final int vagas;
+    private final int vagasGaragem;
     private final int andar;
 
     // Construtor
     public Apartamento(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, int vagas, int andar){
         super(valorImovel,taxaJurosAnual, prazoFinanciamento);
-        this.vagas = vagas;
+        this.vagasGaragem = vagas;
         this.andar = andar;
     }
     // Getters
 
-    public int getVagas(){
-        return vagas;
+    public int getVagasGaragem(){
+        return vagasGaragem;
     }
     public int getAndar(){
         return andar;
@@ -37,7 +37,7 @@ public class Apartamento extends Financiamento { // Especificação
         double pagamentoTotal = this.calcularPagamentoTotal(); // Chamando a função de calcular o pagamento total com a taxa aplicada
 
         System.out.println("Tipo: Apartamento");
-        System.out.println("Vagas disponíveis: " + this.getVagas());
+        System.out.println("Vagas disponíveis: " + this.getVagasGaragem());
         System.out.println("Andares: " + this.getAndar());
         System.out.printf("\nPagamento mensal = R$%.2f%n\n", pagamentoMensal);
 
