@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
-
 public abstract class Financiamento { // Classe-pai - generalização
 
     // Atributos
