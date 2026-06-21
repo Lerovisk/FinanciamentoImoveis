@@ -14,25 +14,22 @@ public abstract class Financiamento { // Classe-pai - generalização
         this.prazoFinanciamento = prazoInicialFinanciamento;
     }
 
+    // Métodos abstratos
+    public abstract double calcularPagamentoMensal();  // Define que as classes-filhas precisam calcular o pagamento mensal
+    public abstract void imprimirDados(); // Define que as classes-filhas precisam imprimir seus dados
+
+    // Métodos concretos e getters
+    public double calcularPagamentoTotal() { // Calcula o total a ser pago de acordo com o prazo por ano
+        return calcularPagamentoMensal() * getPrazoFinanciamento() * 12;
+    }
     // Getters
-    public double getValorImovel() { // Declarando o acesso ao valor do imóvel
+    public double getValorImovel() { // Declara o acesso ao valor do imóvel
         return valorImovel;
     }
-
-    public double getTaxaJurosAnual() { // Declarando o acesso a taxa de juros
+    public double getTaxaJurosAnual() { // Declara o acesso a taxa de juros
         return taxaJurosAnual;
     }
-
-    public int getPrazoFinanciamento() { // Declarando o acesso ao prazo do financiamento
+    public int getPrazoFinanciamento() { // Declara o acesso ao prazo do financiamento
         return prazoFinanciamento;
-    }
-
-    // Métodos
-    public abstract double calcularPagamentoMensal();
-
-    public abstract void imprimirDados();
-
-    public double calcularPagamentoTotal() { // Calculando o total a ser pago de acordo com o prazo por ano
-        return calcularPagamentoMensal() * getPrazoFinanciamento() * 12;
     }
 }

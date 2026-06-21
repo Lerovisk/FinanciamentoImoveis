@@ -14,7 +14,6 @@ public class Casa extends Financiamento { // Especificação
     }
 
     // Getters
-
     public double getAreaDaCasa(){
         return areaDaCasa;
     }
@@ -24,13 +23,13 @@ public class Casa extends Financiamento { // Especificação
 
     // Metodos
     @Override
-    public double calcularPagamentoMensal() { // Calculando pagamento mensal específico para casa
+    public double calcularPagamentoMensal() { // Calcula o pagamento mensal específico para casa
         return (getValorImovel() / (getPrazoFinanciamento() * 12.0)) * (1 + (getTaxaJurosAnual() / 12.0)) + 240;
     }
     @Override
-    public void imprimirDados() {
-        double pagamentoMensal = this.calcularPagamentoMensal(); // Chamando a função de calcular o pagamento mensal
-        double pagamentoTotal = this.calcularPagamentoTotal(); // Chamando a função de calcular o pagamento total com a taxa aplicada
+    public void imprimirDados() { // Imprime os dados de casa
+        double pagamentoMensal = this.calcularPagamentoMensal(); // Chama a função de calcular o pagamento mensal
+        double pagamentoTotal = this.calcularPagamentoTotal(); // Chama a função de calcular o pagamento total com a taxa aplicada
 
         System.out.println("Tipo: Casa");
         System.out.printf("Área da construção da casa = %.2fm²%n", this.getAreaDaCasa());

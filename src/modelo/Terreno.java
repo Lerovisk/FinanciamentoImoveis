@@ -18,14 +18,14 @@ public class Terreno extends Financiamento { // Especificação
 
     // Metodos
     @Override
-    public double calcularPagamentoMensal() { // Calculando pagamento mensal específico para terreno
+    public double calcularPagamentoMensal() { // Calcula o pagamento mensal específico para terreno
         return (getValorImovel() / (getPrazoFinanciamento() * 12.0)) * (1 + (getTaxaJurosAnual() / 12.0)) * (1 + (2.0/100)); // podia ser * 1.02, tanto faz.
     }
 
     @Override
-    public void imprimirDados() {
-        double pagamentoMensal = this.calcularPagamentoMensal(); // Chamando a função de calcular o pagamento mensal
-        double pagamentoTotal = this.calcularPagamentoTotal(); // Chamando a função de calcular o pagamento total com a taxa aplicada
+    public void imprimirDados() { // Imprime os dados de terreno
+        double pagamentoMensal = this.calcularPagamentoMensal(); // Chama a função de calcular o pagamento mensal
+        double pagamentoTotal = this.calcularPagamentoTotal(); // Chama a função de calcular o pagamento total com a taxa aplicada
 
         System.out.println("Tipo: Terreno");
         System.out.println("Zona: " + this.getZona());
