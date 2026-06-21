@@ -117,8 +117,7 @@ public class InterfaceUsuario {  // Criando a classe InterfaceUsuario
 
     // Métodos de terreno
     public String informarZonaDoTerreno(){ // Pede ao usuário que digite se a zona é residecial ou comercial
-        String zona = "";
-
+        String zona;
         do{
             System.out.print("4) Digite a zona do terreno (Residencial ou Comercial): ");
             zona = sc.next();
