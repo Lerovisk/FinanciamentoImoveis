@@ -42,7 +42,7 @@ public class Apartamento extends Financiamento { // Especificação
 
         System.out.printf("Valor do imóvel = R$%.2f%n", this.getValorImovel());
         System.out.printf("Taxa aplicada anualmente = %.2f%%%n", this.getTaxaJurosAnual() * 100);
-        System.out.println("Anos: " + this.getPrazoFinanciamento() + " anos.");
+        System.out.println("Prazo do financiamento: " + this.getPrazoFinanciamento() + " anos.");
         System.out.printf("Pagamento total = R$%.2f\n", pagamentoTotal);
         System.out.println("\n==========================");
 
