@@ -1,50 +1,52 @@
 package modelo;
 
-public class Apartamento extends Financiamento { // Especificação
-
-    // Atributos
+public class Apartamento extends Financiamento {
     private final int vagasGaragem;
     private final int andar;
 
-    // Construtor
-    public Apartamento(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, int vagas, int andar){
-        super(valorImovel,taxaJurosAnual, prazoFinanciamento);
+    public Apartamento(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, int vagas, int andar) {
+        super(valorImovel, taxaJurosAnual, prazoFinanciamento);
         this.vagasGaragem = vagas;
         this.andar = andar;
     }
-    // Getters
-    public int getVagasGaragem(){
+
+    public int getVagasGaragem() {
         return vagasGaragem;
     }
-    public int getAndar(){
+
+    public int getAndar() {
         return andar;
     }
 
-    // Metodos
     @Override
-    public double calcularPagamentoTotal() { // Calcula o pagamento total específico para apartamento
-        return getValorImovel() * (1 + (getTaxaJurosAnual() * getPrazoFinanciamento()));
-    }
-    @Override
-    public double calcularPagamentoMensal() { // Calcula o pagamento mensal específico para apartamento
-        return calcularPagamentoTotal() / (getPrazoFinanciamento() * 12);
+    public double calcularPagamentoMensal() {
+        return calcularPrestacaoMensalPadrao();
     }
 
     @Override
-    public void imprimirDados() { // Imprime os dados de Apartamento
-        double pagamentoMensal = this.calcularPagamentoMensal(); // Chama a função de calcular o pagamento mensal
-        double pagamentoTotal = this.calcularPagamentoTotal(); // Chama a função de calcular o pagamento total com a taxa aplicada
+    public String paraFormatoTexto() {
+        return String.join(";",
+                "Apartamento",
+                String.valueOf(getValorImovel()),
+                String.valueOf(getTaxaJurosAnual()),
+                String.valueOf(getPrazoFinanciamento()),
+                String.valueOf(vagasGaragem),
+                String.valueOf(andar));
+    }
+
+    @Override
+    public void imprimirDados() {
+        double pagamentoMensal = calcularPagamentoMensal();
+        double pagamentoTotal = calcularPagamentoTotal();
 
         System.out.println("Tipo: Apartamento");
-        System.out.println("Vagas na garagem: " + this.getVagasGaragem());
-        System.out.println("Andar: " + this.getAndar());
+        System.out.println("Vagas na garagem: " + getVagasGaragem());
+        System.out.println("Andar: " + getAndar());
         System.out.printf("\nPagamento mensal = R$%.2f%n\n", pagamentoMensal);
-
-        System.out.printf("Valor do imóvel = R$%.2f%n", this.getValorImovel());
-        System.out.printf("Taxa aplicada anualmente = %.2f%%%n", this.getTaxaJurosAnual() * 100);
-        System.out.println("Prazo do financiamento: " + this.getPrazoFinanciamento() + " anos.");
+        System.out.printf("Valor do imóvel = R$%.2f%n", getValorImovel());
+        System.out.printf("Taxa aplicada anualmente = %.2f%%%n", getTaxaJurosAnual() * 100);
+        System.out.println("Prazo do financiamento: " + getPrazoFinanciamento() + " anos.");
         System.out.printf("Pagamento total = R$%.2f\n", pagamentoTotal);
         System.out.println("\n==========================");
-
     }
 }
