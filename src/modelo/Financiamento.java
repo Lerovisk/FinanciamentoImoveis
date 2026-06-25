@@ -1,35 +1,58 @@
 package modelo;
 
-public abstract class Financiamento { // Classe-pai - generalização
+import java.io.Serializable;
 
-    // Atributos
+public abstract class Financiamento implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final double valorImovel;
     private final double taxaJurosAnual;
     private final int prazoFinanciamento;
 
-    // Construtor
     public Financiamento(double valorInicialImovel, double taxaInicialJurosAnual, int prazoInicialFinanciamento) {
+        if (valorInicialImovel <= 0) {
+            throw new IllegalArgumentException("O valor do imóvel deve ser positivo.");
+        }
+        if (taxaInicialJurosAnual <= 0 || taxaInicialJurosAnual > 1) {
+            throw new IllegalArgumentException("A taxa de juros deve estar entre 0 e 1.");
+        }
+        if (prazoInicialFinanciamento <= 0 || prazoInicialFinanciamento > 35) {
+            throw new IllegalArgumentException("O prazo deve estar entre 1 e 35 anos.");
+        }
+
         this.valorImovel = valorInicialImovel;
         this.taxaJurosAnual = taxaInicialJurosAnual;
         this.prazoFinanciamento = prazoInicialFinanciamento;
     }
 
-    // Métodos abstratos
-    public abstract double calcularPagamentoMensal();  // Define que as classes-filhas precisam calcular o pagamento mensal
-    public abstract void imprimirDados(); // Define que as classes-filhas precisam imprimir seus dados
+    public abstract double calcularPagamentoMensal();
+    public abstract void imprimirDados();
+    public abstract String paraFormatoTexto();
 
-    // Métodos concretos e getters
-    public double calcularPagamentoTotal() { // Calcula o total a ser pago de acordo com o prazo por ano
+    protected double calcularPrestacaoMensalPadrao() {
+        int meses = getPrazoFinanciamento() * 12;
+        double taxaMensal = getTaxaJurosAnual() / 12.0;
+
+        if (taxaMensal == 0.0) {
+            return getValorImovel() / meses;
+        }
+
+        return getValorImovel() * taxaMensal / (1 - Math.pow(1 + taxaMensal, -meses));
+    }
+
+    public double calcularPagamentoTotal() {
         return calcularPagamentoMensal() * getPrazoFinanciamento() * 12;
     }
-    // Getters
-    public double getValorImovel() { // Declara o acesso ao valor do imóvel
+
+    public double getValorImovel() {
         return valorImovel;
     }
-    public double getTaxaJurosAnual() { // Declara o acesso a taxa de juros
+
+    public double getTaxaJurosAnual() {
         return taxaJurosAnual;
     }
-    public int getPrazoFinanciamento() { // Declara o acesso ao prazo do financiamento
+
+    public int getPrazoFinanciamento() {
         return prazoFinanciamento;
     }
 }

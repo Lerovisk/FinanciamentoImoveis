@@ -1,47 +1,53 @@
 package modelo;
 
-public class Casa extends Financiamento { // Especificação
-
-    // Atributos
+public class Casa extends Financiamento {
     private final double areaDaCasa;
     private final double areaDoTerreno;
 
-    // Construtor
-    public Casa(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, double areaDaCasa, double areaDoTerreno){
-        super(valorImovel,taxaJurosAnual, prazoFinanciamento);
-        this.areaDoTerreno = areaDoTerreno;
+    public Casa(double valorImovel, double taxaJurosAnual, int prazoFinanciamento, double areaDaCasa, double areaDoTerreno) {
+        super(valorImovel, taxaJurosAnual, prazoFinanciamento);
         this.areaDaCasa = areaDaCasa;
+        this.areaDoTerreno = areaDoTerreno;
     }
 
-    // Getters
-    public double getAreaDaCasa(){
+    public double getAreaDaCasa() {
         return areaDaCasa;
     }
-    public double getAreaDoTerreno(){
-            return areaDoTerreno;
+
+    public double getAreaDoTerreno() {
+        return areaDoTerreno;
     }
 
-    // Metodos
     @Override
-    public double calcularPagamentoMensal() { // Calcula o pagamento mensal específico para casa
-        return (getValorImovel() / (getPrazoFinanciamento() * 12.0)) * (1 + (getTaxaJurosAnual() / 12.0)) + 240;
+    public double calcularPagamentoMensal() {
+        return calcularPrestacaoMensalPadrao() + 240;
     }
+
     @Override
-    public void imprimirDados() { // Imprime os dados de casa
-        double pagamentoMensal = this.calcularPagamentoMensal(); // Chama a função de calcular o pagamento mensal
-        double pagamentoTotal = this.calcularPagamentoTotal(); // Chama a função de calcular o pagamento total com a taxa aplicada
+    public String paraFormatoTexto() {
+        return String.join(";",
+                "Casa",
+                String.valueOf(getValorImovel()),
+                String.valueOf(getTaxaJurosAnual()),
+                String.valueOf(getPrazoFinanciamento()),
+                String.valueOf(areaDaCasa),
+                String.valueOf(areaDoTerreno));
+    }
+
+    @Override
+    public void imprimirDados() {
+        double pagamentoMensal = calcularPagamentoMensal();
+        double pagamentoTotal = calcularPagamentoTotal();
 
         System.out.println("Tipo: Casa");
-        System.out.printf("Área da construção da casa = %.2fm²%n", this.getAreaDaCasa());
-        System.out.printf("Área do terreno = %.2fm²%n", this.getAreaDoTerreno());
+        System.out.printf("Área da construção da casa = %.2fm²%n", getAreaDaCasa());
+        System.out.printf("Área do terreno = %.2fm²%n", getAreaDoTerreno());
         System.out.printf("\nPagamento mensal + R$240,00 (seguro) = R$%.2f\n", pagamentoMensal);
         System.out.println();
-
-        System.out.printf("Valor do imóvel = R$%.2f%n", this.getValorImovel());
-        System.out.printf("Taxa aplicada anualmente = %.2f%%%n", this.getTaxaJurosAnual() * 100);
-        System.out.println("Prazo do financiamento: " + this.getPrazoFinanciamento() + " anos.");
+        System.out.printf("Valor do imóvel = R$%.2f%n", getValorImovel());
+        System.out.printf("Taxa aplicada anualmente = %.2f%%%n", getTaxaJurosAnual() * 100);
+        System.out.println("Prazo do financiamento: " + getPrazoFinanciamento() + " anos.");
         System.out.printf("Pagamento total = R$%.2f\n", pagamentoTotal);
         System.out.println("\n==========================");
-
     }
 }

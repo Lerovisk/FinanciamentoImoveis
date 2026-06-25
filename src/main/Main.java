@@ -1,73 +1,95 @@
 package main;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import modelo.Financiamento;
 import util.InterfaceUsuario;
+import util.PersistenciaFinanciamentos;
 
 public class Main {
     public static void main(String[] args) {
-
         System.out.println("\n======= Bem-vindo! =======");
 
-        ArrayList<Financiamento> financiamentos = new ArrayList<>(); // Cria uma ArrayList financiamentos para armazenar os financiamentos
-        InterfaceUsuario novoFinanciamento = new InterfaceUsuario(); // Cria um novo objeto na classe util.InterfaceUsuario
+        InterfaceUsuario interfaceUsuario = new InterfaceUsuario();
+        List<Financiamento> financiamentos = coletarFinanciamentos(interfaceUsuario);
 
-        int tipo = novoFinanciamento.informarTipoImovel();
-
-        System.out.println("\n- Informe abaixo os dados necessários para dar continuidade ao financiamento.\n");
-
-        double valorImovel = novoFinanciamento.informarValorImovel(); // Informa o valor do imóvel
-        double taxaJurosAnual = novoFinanciamento.informarTaxaJuros(); // Iforma a taxa de juros
-        int prazoFinanciamento = novoFinanciamento.informarPrazoAnos(); // Informa o prazo do financiamento
-
-        // Possíveis financiamentos
-        switch (tipo) {
-            case 1: {
-                double areaDaCasa = novoFinanciamento.informarAreaDaCasa(); // Informa a area da casa (Somente para objetos do tipo Casa)
-                double areaDoTerreno = novoFinanciamento.informarAreaDoTerreno(); // Informa a area do terreno (Somente para objetos do tipo Casa)
-                financiamentos.add(new modelo.Casa(valorImovel, taxaJurosAnual, prazoFinanciamento, areaDaCasa, areaDoTerreno ));
-                // Adiciona um novo finaciamento do tipo Casa
-                break;
-            }
-            case 2: {
-                String zona = novoFinanciamento.informarZonaDoTerreno();
-                financiamentos.add(new modelo.Terreno(valorImovel, taxaJurosAnual, prazoFinanciamento, zona));
-                // Adiciona um novo finaciamento do tipo Terreno
-                break;
-            }
-            case 3: {
-                int vagas = novoFinanciamento.informarVagasApartamento();
-                int andar = novoFinanciamento.informarAndarApartamento();
-                financiamentos.add(new modelo.Apartamento(valorImovel, taxaJurosAnual, prazoFinanciamento, vagas, andar));
-                // Adiciona um novo finaciamento do tipo Apartamento
-                break;
-            }
-            default: System.out.println("Opção de imóvel inválida!");
-                break;
+        if (financiamentos.isEmpty()) {
+            System.out.println("Nenhum financiamento foi cadastrado.");
+        } else {
+            salvarDados(financiamentos);
+            imprimirRelatorioFinal(financiamentos);
         }
 
-        // Financiamentos fixos
-        financiamentos.add(new modelo.Apartamento(70000, 0.1, 10, 2,7));
-        financiamentos.add(new modelo.Apartamento(800000, 0.1, 10, 1, 4));
-        financiamentos.add(new modelo.Terreno(1000000, 0.1, 10, "Residencial"));
+        interfaceUsuario.fecharScanner();
+        System.out.println("==========================================");
+    }
 
-        novoFinanciamento.fecharScanner(); // Fecha o scanner, pois não será mais usado (eu acho ;-;)
+    private static List<Financiamento> coletarFinanciamentos(InterfaceUsuario ui) {
+        List<Financiamento> financiamentos = new ArrayList<>();
+        boolean continuar = true;
 
+        while (continuar) {
+            System.out.println("\n- Informe abaixo os dados necessários para dar continuidade ao financiamento.\n");
+
+            int tipo = ui.informarTipoImovel();
+            double valorImovel = ui.informarValorImovel();
+            double taxaJurosAnual = ui.informarTaxaJuros();
+            int prazoFinanciamento = ui.informarPrazoAnos();
+
+            switch (tipo) {
+                case 1: {
+                    double areaDaCasa = ui.informarAreaDaCasa();
+                    double areaDoTerreno = ui.informarAreaDoTerreno();
+                    financiamentos.add(new modelo.Casa(valorImovel, taxaJurosAnual, prazoFinanciamento, areaDaCasa, areaDoTerreno));
+                    break;
+                }
+                case 2: {
+                    String zona = ui.informarZonaDoTerreno();
+                    financiamentos.add(new modelo.Terreno(valorImovel, taxaJurosAnual, prazoFinanciamento, zona));
+                    break;
+                }
+                case 3: {
+                    int vagas = ui.informarVagasApartamento();
+                    int andar = ui.informarAndarApartamento();
+                    financiamentos.add(new modelo.Apartamento(valorImovel, taxaJurosAnual, prazoFinanciamento, vagas, andar));
+                    break;
+                }
+                default:
+                    // Este caso é teoricamente inalcançável devido à validação em informarTipoImovel()
+                    System.out.println("Opção de imóvel inválida!");
+                    break;
+            }
+
+            continuar = ui.informarContinuar();
+        }
+        return financiamentos;
+    }
+
+    private static void salvarDados(List<Financiamento> financiamentos) {
+        PersistenciaFinanciamentos persistencia = new PersistenciaFinanciamentos("dados");
+        try {
+            persistencia.salvarTexto(financiamentos);
+            persistencia.salvarSerializado(financiamentos);
+            System.out.println("\nDados salvos com sucesso em 'dados/financiamentos.txt' e 'dados/financiamentos.ser'.");
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar os dados: " + e.getMessage());
+        }
+    }
+
+    private static void imprimirRelatorioFinal(List<Financiamento> financiamentos) {
         double somaImoveis = 0;
         double somaFinanciamentos = 0;
         int contador = 1;
 
-        for (Financiamento f : financiamentos) { // Imprime os financiamentos
-            System.out.format("\n===== Financiamento %d =====\n", contador);
-            f.imprimirDados();
-
-            somaImoveis += f.getValorImovel(); // Soma o valor dos imóveis
-            somaFinanciamentos += f.calcularPagamentoTotal(); // Soma os financiamentos dos imóveis
-            contador++;
+        for (Financiamento financiamento : financiamentos) {
+            System.out.printf("\n===== Financiamento %d =====\n", contador++);
+            financiamento.imprimirDados();
+            somaImoveis += financiamento.getValorImovel();
+            somaFinanciamentos += financiamento.calcularPagamentoTotal();
         }
-        // Imprime a soma total dos valores originais dos imóveis e a soma de seus financiamentos com taxas e outras aplicações
+
         System.out.printf("Total da soma de todos os imóveis = R$%.2f%n", somaImoveis);
         System.out.printf("Total da soma dos financiamentos = R$%.2f%n", somaFinanciamentos);
-        System.out.println("==========================================");
     }
 }
